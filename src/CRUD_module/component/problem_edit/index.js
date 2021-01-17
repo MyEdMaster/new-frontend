@@ -14,7 +14,8 @@ class ProblemEditReact extends React.Component {
             name:this.props.data.name,
             description:this.props.data.description,
             parameter_number:this.props.data.parameter_number,
-            start_format:this.props.data.start_format
+            start_format:this.props.data.start_format,
+            session_id:this.props.data.session_id
         };
 
     }
@@ -50,7 +51,7 @@ class ProblemEditReact extends React.Component {
     render() {
         return (
             <div>
-                <MDBIcon style={{cursor:'pointer'}}className='grey-text' far icon="edit" onClick={this.toggle(1)}/>
+                {/*<MDBIcon style={{cursor:'pointer'}}className='grey-text' far icon="edit" onClick={this.toggle(1)}/>*/}
 
                 <MDBModal isOpen={this.state.modal1} toggle={this.toggle(1)} centered size="lg">
                     <MDBModalHeader>Edit Problem</MDBModalHeader>
@@ -74,6 +75,30 @@ class ProblemEditReact extends React.Component {
                                      onChange={(e) => {
                                          this.setState({
                                              name: e.target.value
+                                         });
+                                     }}
+
+                                 />
+                            </div>
+                        </div>
+                        <div className='row align-items-center'>
+                            <div className='col-2 mr-1'>Session ID</div>
+                            <div className='col-9'>
+                                 <textarea
+                                     className={`form-control`}
+                                     placeholder="Start Format"
+                                     style={{
+                                         borderStyle:'solid',
+                                         borderWidth:'1px',
+                                         borderColor:'#7e57c2',
+                                         borderRadius:'15px',
+                                         fontFamily:'\'Rajdhani\', sans-serif',
+                                         fontSize:'20px',
+                                     }}
+                                     value={this.state.backend.session_id}
+                                     onChange={(e) => {
+                                         this.setState({
+                                             session_id: e.target.value
                                          });
                                      }}
 
@@ -178,7 +203,8 @@ class ProblemEditReact extends React.Component {
                                     name:this.state.name,
                                     description:this.state.description,
                                     parameter_number:this.state.parameter_number,
-                                    start_format:this.state.start_format
+                                    start_format:this.state.start_format,
+                                    session_id:this.state.session_id
                                 };
                                 this.put(body);
                                 this.handleSaveData();

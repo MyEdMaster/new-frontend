@@ -64,4 +64,4 @@ class ComplexNumberMenuReact extends React.Component {
         );
     }
 }
-export const ComplexNumberMenu = withRouter(ComplexNumberMenuReact)
+export const ComplexNumberMenu = withRouter(ComplexNumberMenuReact);

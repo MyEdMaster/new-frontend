@@ -26,6 +26,7 @@ export class ComplexSubt extends React.Component {
             isRight:true,
             finish:false,
             finishText:'',
+            showHint:'',
 
             steps: [
                 {
@@ -46,6 +47,13 @@ export class ComplexSubt extends React.Component {
             ]
         };
         this.mark = deleteMark(this.state.a, this.state.b, this.state.c, this.state.d)
+        this.hintDic = [
+            [],
+            [],
+            [],
+            []
+
+        ];
 
     }
     componentDidMount() {
@@ -112,6 +120,28 @@ export class ComplexSubt extends React.Component {
                     })
                 }
             })
+    };
+    hintBtn = ()=>{
+        // let str = [];
+        return(
+            <button
+                onClick={()=>{
+
+
+
+                    if (this.hintDic[this.state.step - 1].length > 0){
+                        this.setState({
+                            showHint: this.hintDic[this.state.step - 1].pop(),
+                            hint:''
+                        });
+                    }
+
+                }}
+                className={classes.btn3}
+            >
+                Show Hints
+            </button>
+        )
     };
     render() {
         const { run,steps } = this.state;
@@ -430,7 +460,8 @@ export class ComplexSubt extends React.Component {
                                     className="py-3 px-3 w-100 green lighten-3"
                                     style={{boxShadow:'none', borderRadius:'0'}}
                                 >
-                                    <p className={classes.pb}>Hints/Feedback</p>
+                                    <div className={classes.pb}>Hints/Feedback <span>{this.hintBtn()}</span></div>
+                                    <p className={classes.pb2}>{this.state.showHint}</p>
                                     <p className={classes.pb2}>{this.state.hint}</p>
                                     {/*<MDBRow center>*/}
                                     {/*<MDBBtn tag="a" floating disabled className="grey lighten-1">*/}

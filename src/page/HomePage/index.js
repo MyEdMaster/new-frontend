@@ -249,15 +249,23 @@ class HomePageReact extends React.Component {
                                     </MDBCol>
                                     <MDBCol md="4" className={classes.content}>
                                         <MDBIcon icon="atom" size="3x" className="mt-2" style={{color:'#2EAFB0'}} />
-                                        <h4 className="font-weight-bold my-4" style={{fontFamily:'Comic Sans MS',color:'#2EAFB0'}}>Science</h4>
+                                        <h4 className="font-weight-bold my-4" style={{fontFamily:'Comic Sans MS',color:'#2EAFB0'}}>Explore</h4>
                                         {/*<p*/}
                                             {/*className={classes.science}*/}
 
-                                            {/*onClick={() => {this.props.history.push('/problem_list');}}*/}
+                                            {/*onClick={() => {this.props.history.push('/overall-list-new');}}*/}
                                         {/*>*/}
-                                            {/*<span className={classes.font1}>test-add-math</span>*/}
+                                            {/*<span className={classes.font1}>System Review</span>*/}
 
                                         {/*</p>*/}
+                                        <p
+                                            className={classes.science}
+
+                                            onClick={() => {this.props.history.push('/session');}}
+                                        >
+                                            <span className={classes.font1}>Session Review</span>
+
+                                        </p>
                                         <p className={classes.font2}>
                                             Expect more in the future...
                                         </p>

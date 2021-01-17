@@ -1,12 +1,14 @@
 'use strict'
 import React from 'react';
 import classes from './index.module.css';
-
+import {withRouter} from 'react-router-dom';
 import {MDBBtn, MDBCard,MDBIcon, MDBModal, MDBModalBody} from 'mdbreact';
-import {handleSyn} from "../../../RRH/Component/speech-syn";
-import {cancelSyn} from "../../../RRH/Component/speech-syn";
-import q from '../../Lib/question-mark.jpg'
-import {url} from "../../../../tool/fetch-help";
+
+import {handleSyn} from "../../RRH/Component/speech-syn";
+import {cancelSyn} from "../../RRH/Component/speech-syn";
+import q from '../Lib/question-mark.jpg'
+import {nodeurl2} from "../../../tool/fetch-help";
+import {url} from "../../../tool/fetch-help";
 import Joyride from 'react-joyride';
 
 //------------------------SPEECH RECOGNITION-----------------------------
@@ -21,7 +23,7 @@ recognition.interimResults = true;
 recognition.lang = 'en-US';
 
 
-export class AskQuestionComplex extends React.Component {
+class AskQuestionSessionReact extends React.Component {
 
     constructor(props) {
         super(props);
@@ -127,7 +129,7 @@ export class AskQuestionComplex extends React.Component {
     };
 
     searchAnswer=(value)=>{
-        cancelSyn()
+        cancelSyn();
         const option={
             method:'POST',
             headers: {
@@ -135,12 +137,12 @@ export class AskQuestionComplex extends React.Component {
             },
             body:JSON.stringify({question:value})
         };
-        fetch(`${url}/ask_question/p2`,option)
+        fetch(`${nodeurl2}/ask_question/p1/${this.props.id}`,option)
             .then(response=>response.json())
             .then(answer=>{
                 this.setState({
                     backend:answer
-                })
+                });
                 switch (answer.type) {
                     case '1':
                         this.setState({
@@ -451,3 +453,4 @@ export class AskQuestionComplex extends React.Component {
         );
     }
 }
+export const AskQuestionSession = withRouter(AskQuestionSessionReact);

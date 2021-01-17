@@ -1,0 +1,56 @@
+.font{
+    font-family: 'Rajdhani', sans-serif;
+    color: #7e57c2;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    line-height: 77px;
+    text-align: center;
+    padding-top: 10px;
+}
+.font2{
+    font-family: 'Rajdhani', sans-serif;
+    color: #F1831D;
+    padding-bottom: 25px;
+    font-size: 70px;
+    font-style: normal;
+    font-variant: normal;
+
+    line-height: 77px;
+    text-align: center;
+}
+.title1{
+    font-family: 'Rajdhani', sans-serif;
+    height: 100%;
+    color: #7e57c2;
+    font-size: 40px;
+    font-style: normal;
+    padding: 25px 0;
+    font-variant: normal;
+    line-height: 77px;
+    text-align: center;
+}
+.title2{
+    font-family: 'Rajdhani', sans-serif;
+    height: auto;
+    color: #F1831D;
+    padding: 25px 0;
+    font-size: 40px;
+    font-style: normal;
+    font-variant: normal;
+
+    line-height: 77px;
+    text-align: center;
+}
+.font3{
+    font-family: 'Rajdhani', sans-serif;
+    color: #000000;
+    padding-bottom: 25px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-variant: normal;
+    line-height: 24px;
+    text-align: left;
+}

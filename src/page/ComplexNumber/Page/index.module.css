@@ -195,3 +195,12 @@
     margin-top: 10px;
     text-align: left;
 }
+.btn3{
+    font-family: 'Roboto',sans-serif ;
+    font-size: 12px;
+    font-weight: bolder;
+    color:#66bb6a;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #bbb;
+}

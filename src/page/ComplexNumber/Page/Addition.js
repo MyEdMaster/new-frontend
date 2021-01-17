@@ -26,6 +26,7 @@ export class ComplexAdd extends React.Component {
             isRight:true,
             finish:false,
             finishText:'',
+            showHint:'',
 
             steps: [
                 {
@@ -46,6 +47,23 @@ export class ComplexAdd extends React.Component {
             ]
         };
         this.mark = deleteMark(this.state.a, this.state.b, this.state.c, this.state.d)
+        this.hintDic = [
+            [
+                'Hint1: Type in the complex numbers you\'re adding to organize your thoughts  ',
+            ],
+            [],
+            [
+                'Hint3: Add like terms together.',
+                'Hint2: How do you add two polynomials together?',
+                'Hint1: Distribute the factors.'
+            ],
+            [
+                'Hint3: Carry out the calculations from the previous step.',
+                `Hint2: Simplify to find the sum of  ${this.state.a}+${this.state.b}i  and ${this.state.c}+${this.state.d}i.`,
+                'Hint1: Now that you\'ve grouped, you just need to add the real parts and the complex parts together.'
+            ],
+
+        ];
 
     }
 
@@ -69,29 +87,29 @@ export class ComplexAdd extends React.Component {
                 'content-type': 'application/json',
             },
             body:JSON.stringify({
-                "A":this.state.a,
-                "B":this.state.b,
-                "C":this.state.c,
-                "D":this.state.d,
-                "step":this.state.step.toString(),
+                "problem_id":1,
+                "parameter_number":4,
+                "parameter_list":`${this.state.a},${this.state.b},${this.state.c},${this.state.d}`,
+                "old_step":this.state.step,
                 "answer":this.state.value,
             })
         };
-        fetch(`${new_url}/complex_number/1`,option)
+        fetch(`${new_url}/MathEngine/1`,option)
             .then(response=>response.json())
             .then(answer=>{
                 this.setState({
-                    hint:answer.content
-                })
-                if (answer.type === '0'){
+                    hint:answer.feedback,
+                    showHint:''
+                });
+                if (answer.wrong){
                     this.setState({
                         isRight:false
                     })
                 }
-                else if (answer.type === '1'){
+                if (answer.right){
                     let arr = this.state.answers;
-                    let step= answer.step;
-                    arr.push([step, this.state.value])
+                    let step= answer.new_step;
+                    arr.push([step, this.state.value]);
                     this.setState({
                         answers:arr,
                         step:step,
@@ -99,7 +117,7 @@ export class ComplexAdd extends React.Component {
                         value:''
                     })
                 }
-                else if(answer.type === '2'){
+                if(answer.is_end){
                     let arr = this.state.answers;
                     let step= answer.step;
                     arr.push([step, this.state.value])
@@ -113,7 +131,29 @@ export class ComplexAdd extends React.Component {
                     })
                 }
             })
-    }
+    };
+    hintBtn = ()=>{
+        // let str = [];
+        return(
+            <button
+                onClick={()=>{
+
+
+
+                    if (this.hintDic[this.state.step - 1].length > 0){
+                        this.setState({
+                            showHint: this.hintDic[this.state.step - 1].pop(),
+                            hint:''
+                        });
+                    }
+
+                }}
+                className={classes.btn3}
+            >
+                Show Hints
+            </button>
+        )
+    };
 
 
     render() {
@@ -438,7 +478,8 @@ export class ComplexAdd extends React.Component {
                                     className="py-3 px-3 w-100 green lighten-3"
                                     style={{boxShadow:'none', borderRadius:'0'}}
                                 >
-                                    <p className={classes.pb}>Hints/Feedback</p>
+                                    <div className={classes.pb}>Hints/Feedback <span>{this.hintBtn()}</span></div>
+                                    <p className={classes.pb2}>{this.state.showHint}</p>
                                     <p className={classes.pb2}>{this.state.hint}</p>
                                     {/*<MDBRow center>*/}
                                     {/*<MDBBtn tag="a" floating disabled className="grey lighten-1">*/}

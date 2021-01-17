@@ -7,7 +7,7 @@ import {new_url} from "../../../tool/fetch-help";
 import Joyride from 'react-joyride';
 import {ComplexNumberMenu} from "./Menu";
 import {deleteMark} from "../../../tool/delete-mark";
-
+import {para} from "./config"
 
 
 export class ComplexDivi extends React.Component {
@@ -27,6 +27,7 @@ export class ComplexDivi extends React.Component {
             isRight:true,
             finish:false,
             finishText:'',
+            showHint:'',
 
             steps: [
                 {
@@ -48,6 +49,38 @@ export class ComplexDivi extends React.Component {
         };
         this.mark = deleteMark(this.state.a, this.state.b, this.state.c, this.state.d);
         this.foil_counter = 0
+        this.hintDic = [
+            [
+                'Hint1: Write down the problem you were given.  ',
+            ],
+            [
+                `Hint3: Multiply the numerator and denominator by ${this.state.c}-${this.state.d}i.`,
+                'Hint2: The conjugate of a complex number has the same real component and the opposite sign of the imaginary component.',
+                'Hint1: Multiply the numerator and denominator by the conjugate of the denominator.',
+            ],
+            [],
+            [],
+            [
+                'Hint3: (a + b)(c + d). F = ac, O = ad, I = bc, and L = bd.',
+                'Hint2: FOIL is used for distributing the values in the factors to produce 4 terms. Remember: First, Outer, Inner, Last. Do for numerator and denominator.',
+                'Hint1: Distribute the factors.'
+            ],
+            [
+                'Hint3: i = √(-1), i2 = -1, etc',
+                'Hint2: Substitute i^2 with its corresponding value',
+                'Hint1: Convert imaginary numbers into real numbers',
+            ],
+            [
+                'Hint3: (a + bi) / (c + di)',
+                'Hint2: Put whole numbers right next to each other and leave the imaginaries to the other side for separation.',
+                'Hint1: Arrange like terms next to each other.'
+            ],
+            [
+                'Hint3: a + bi + ci = (a + c) + i(b + d)',
+                'Hint2: Whole numbers go with whole numbers as imaginaries go with imaginaries.',
+                'Hint1: Combine like terms.'
+            ],
+        ];
 
     }
     componentDidMount() {
@@ -89,7 +122,8 @@ export class ComplexDivi extends React.Component {
                 let str = answer.content;
                 let target = 'mixing up signs while multiplying';
                 this.setState({
-                    hint:answer.content
+                    hint:answer.content,
+                    showHint:''
                 });
                 if (answer.type === '0'){
                     this.setState({
@@ -130,7 +164,54 @@ export class ComplexDivi extends React.Component {
                 }
             })
     };
+    hintBtn = ()=>{
+        // let str = [];
+        return(
+            <button
+                onClick={()=>{
+                    if (this.hintDic[this.state.step - 1].length > 0){
+                        // str.push(this.hintDic[this.state.step - 1].pop());
+                        this.setState({
+                            showHint: this.hintDic[this.state.step - 1].pop(),
+                            // showHint: this.state.showHint  += this.hintDic[this.state.step - 1].pop(),
+                            //showHint: this.state.showHint.push(this.hintDic[this.state.step - 1].pop()),
+                            // showHint: str,
+                            hint:''
+                        });
+                    }
 
+                }}
+                className={classes.btn3}
+            >
+                Show Hints
+            </button>
+        )
+    };
+    nextParamBtn = ()=>{
+        // let str = [];
+        return(
+            <button
+                onClick={()=>{
+                    if (para.length > 0){
+                        let abcd = para.pop();
+                        this.setState({
+                            a:abcd[0],
+                            b:abcd[1],
+                            c:abcd[2],
+                            d:abcd[3],
+                            finish:false,
+                            answers:[],
+                            step:1,
+                        });
+                    }
+
+                }}
+                className={classes.btn3}
+            >
+                Next Question
+            </button>
+        )
+    };
 
     render() {
 
@@ -587,7 +668,11 @@ export class ComplexDivi extends React.Component {
 
                                 </div>
                             ):(
-                                <p className={classes.pb4}>Finished! You got it</p>
+                                <div>
+                                    <p className={classes.pb4}>Finished! You got it</p>
+                                    {this.nextParamBtn()}
+                                </div>
+
                             )}
 
 
@@ -599,7 +684,8 @@ export class ComplexDivi extends React.Component {
                                     className="py-3 px-3 w-100 green lighten-3"
                                     style={{boxShadow:'none', borderRadius:'0'}}
                                 >
-                                    <p className={classes.pb}>Hints/Feedback</p>
+                                    <div className={classes.pb}>Hints/Feedback <span>{this.hintBtn()}</span></div>
+                                    <p className={classes.pb2}>{this.state.showHint}</p>
                                     <p className={classes.pb2}>{this.state.hint}</p>
                                     {/*<MDBRow center>*/}
                                     {/*<MDBBtn tag="a" floating disabled className="grey lighten-1">*/}

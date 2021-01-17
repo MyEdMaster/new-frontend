@@ -70,17 +70,18 @@ class ProblemListReact extends React.Component {
                     <Nav/>
                     <div className='cell-wall'>
                         <div className='cell-membrane'>
-                            <div className='mt-2'>
+                            <h3 className={`h2-responsive font-weight-bold my-3 blue-text`}>
                                 All Problems
-                            </div>
+                            </h3>
+
                             <div className={classes.title}>
                                 <div className ='row py-2'>
                                     <div className='col-1'>#</div>
                                     <div className='col-2'>Name</div>
                                     <div className='col-3'>Description</div>
                                     <div className='col-2'>Para number</div>
-                                    <div className='col-3'>Start Format</div>
-                                    <div className='col-1'> <ProblemAdd onSave={this.handleOnSave}/></div>
+                                    <div className='col-4'>Start Format</div>
+                                    {/*<div className='col-1'> <ProblemAdd onSave={this.handleOnSave}/></div>*/}
                                 </div>
                             </div>
                             {

@@ -15,7 +15,8 @@ class ProblemPanelReact extends React.Component {
             name:'',
             description:'',
             parameter_number:0,
-            start_format:''
+            start_format:'',
+            session_id:''
         };
 
     }
@@ -28,14 +29,15 @@ class ProblemPanelReact extends React.Component {
                 'content-type': 'application/json',
             }
         };
-        fetch(`${nodeurl}/problem/${this.props.id}`,option)
+        fetch(`${nodeurl}/session_problem/${this.props.id}`,option)
             .then(response=>response.json())
             .then(res=>{
                 this.setState({
                     backend:res[0],
                     description:res[0].description,
                     parameter_number:res[0].parameter_number,
-                    start_format:res[0].start_format
+                    start_format:res[0].start_format,
+                    session_id:res[0].session_id
                 });
             })
 
@@ -83,10 +85,10 @@ class ProblemPanelReact extends React.Component {
                     <div className='col-2'>{this.state.backend.name}</div>
                     <div className='col-3'>{this.state.backend.description}</div>
                     <div className='col-2'>{this.state.backend.parameter_number}</div>
-                    <div className='col-3'>{this.state.backend.start_format}</div>
-                    <div className='col-1'>
-                        <MDBIcon style={{cursor:'pointer'}}className='grey-text' far icon="edit" onClick={this.toggle(1)}/>
-                    </div>
+                    <div className='col-4'>{this.state.backend.start_format}</div>
+                    {/*<div className='col-1'>*/}
+                        {/*<MDBIcon style={{cursor:'pointer'}}className='grey-text' far icon="edit" onClick={this.toggle(1)}/>*/}
+                    {/*</div>*/}
                 </div>
 
                 <MDBModal isOpen={this.state.modal1} toggle={this.toggle(1)} centered size="lg">
@@ -111,6 +113,30 @@ class ProblemPanelReact extends React.Component {
                                      onChange={(e) => {
                                          this.setState({
                                              name: e.target.value
+                                         });
+                                     }}
+
+                                 />
+                            </div>
+                        </div>
+                        <div className='row align-items-center'>
+                            <div className='col-2 mr-1'>Session ID</div>
+                            <div className='col-9'>
+                                 <textarea
+                                     className={`form-control`}
+                                     placeholder="Start Format"
+                                     style={{
+                                         borderStyle:'solid',
+                                         borderWidth:'1px',
+                                         borderColor:'#7e57c2',
+                                         borderRadius:'15px',
+                                         fontFamily:'\'Rajdhani\', sans-serif',
+                                         fontSize:'20px',
+                                     }}
+                                     value={this.state.backend.session_id}
+                                     onChange={(e) => {
+                                         this.setState({
+                                             session_id: e.target.value
                                          });
                                      }}
 
@@ -215,7 +241,8 @@ class ProblemPanelReact extends React.Component {
                                     name:this.state.name,
                                     description:this.state.description,
                                     parameter_number:this.state.parameter_number,
-                                    start_format:this.state.start_format
+                                    start_format:this.state.start_format,
+                                    session_id:this.state.session_id
                                 };
                                 this.put(body);
                                 this.handleSaveData();

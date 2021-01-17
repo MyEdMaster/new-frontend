@@ -13,7 +13,8 @@ class ProblemAddReact extends React.Component {
             name:'',
             description:'',
             parameter_number:-1,
-            start_format:''
+            start_format:'',
+            session_id:''
         };
 
     }
@@ -70,6 +71,30 @@ class ProblemAddReact extends React.Component {
                                      onChange={(e) => {
                                          this.setState({
                                              name: e.target.value
+                                         });
+                                     }}
+
+                                 />
+                            </div>
+                        </div>
+                        <div className='row align-items-center'>
+                            <div className='col-2 mr-1'>Session ID</div>
+                            <div className='col-9'>
+                                 <textarea
+                                     className={`form-control`}
+                                     placeholder="Start Format"
+                                     style={{
+                                         borderStyle:'solid',
+                                         borderWidth:'1px',
+                                         borderColor:'#7e57c2',
+                                         borderRadius:'15px',
+                                         fontFamily:'\'Rajdhani\', sans-serif',
+                                         fontSize:'20px',
+                                     }}
+                                     value={this.state.backend.session_id}
+                                     onChange={(e) => {
+                                         this.setState({
+                                             session_id: e.target.value
                                          });
                                      }}
 
@@ -170,7 +195,8 @@ class ProblemAddReact extends React.Component {
                                     name:this.state.name,
                                     description:this.state.description,
                                     parameter_number:this.state.parameter_number,
-                                    start_format:this.state.start_format
+                                    start_format:this.state.start_format,
+                                    session_id:this.state.session_id
                                 };
                                 this.post(body);
                                 this.handleSaveData()
